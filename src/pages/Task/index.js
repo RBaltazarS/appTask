@@ -34,7 +34,8 @@ export default function Task({ navigation }) {
   return (
     <View style={styles.container}>
       <FlatList />
-      <TouchableOpacity style={styles.buttonNewTask}>
+      <TouchableOpacity style={styles.buttonNewTask}
+        onPress={() => navigation.navigate("New Task")}>
         <Text style={styles.iconButton}>+</Text>
       </TouchableOpacity>
     </View>
