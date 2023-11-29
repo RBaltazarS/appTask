@@ -2,7 +2,6 @@ import firebase from "firebase/compat"
 import "firebase/storage"
 
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyBN8k8yTHhZNAZXMA_P99O5bOstiKU5XMg",
   authDomain: "rn-apptask.firebaseapp.com",
@@ -14,6 +13,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
-const database = firebase.firestore()
+//const database = firebase.firestore()
 
-export default database
+export default firebase
