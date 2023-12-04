@@ -7,19 +7,17 @@ import firebase from "../../config/firebase/"
 //Styles
 import styles from "./style"
 
-export default function NewTask({ navigation }) {
+export default function NewTask({ navigation, route }) {
   const database = firebase.firestore()
-
-  
-  const [description, setDescription] = useState(null)
+  const [description, setDescription] = useState("")
 
 
   function addTask() {
-    database.collection("Tasks").add({
+    database.collection(route.params.idUser).add({
       description: description,
       status: false
     })
-    navigation.navigate("Task")
+    navigation.navigate("Task",{idUser:route.params.idUser})
   }
 
 

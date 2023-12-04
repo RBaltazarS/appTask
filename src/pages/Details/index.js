@@ -8,18 +8,16 @@ import firebase from "../../config/firebase/"
 import styles from "./style"
 
 export default function Details({ navigation, route }) {
+  const [descriptionEdit, setDescriptionEdit] = useState(route.params.description)
+  const idTask = route.params.id
   const database = firebase.firestore()
 
 
-  const [descriptionEdit, setDescriptionEdit] = useState(route.params.description)
-  const idTask = route.params.id
-
-
   function editTask(description, id) {
-    database.collection("Tasks").doc(id).update({
-      description: description,
+    database.collection(route.params.idUser).doc(id).update({
+      description: descriptionEdit,
     })
-    navigation.navigate("Task")
+    navigation.navigate("Task", { idUser: route.params.idUser })
   }
 
 

@@ -18,7 +18,7 @@ export default function App() {
           name="Login"
           component={Login}
           options={{
-            headerTintColor: "#FF725E"
+            headerShown: false,
           }}
         />
 
@@ -26,7 +26,7 @@ export default function App() {
           name="NewUser"
           component={NewUser}
           options={{
-            headerTintColor: "#FF725E"
+            headerShown: false,
           }}
         />
 
@@ -34,7 +34,8 @@ export default function App() {
           name="Task"
           component={Task}
           options={{
-            headerTintColor: "#FF725E"
+            headerTintColor: "#FF725E",
+            headerLeft: null
           }}
         />
 

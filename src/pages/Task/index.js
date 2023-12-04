@@ -6,25 +6,34 @@ import { useState, useEffect } from "react";
 //Styles
 import styles from "./style"
 //Icons
-import { FontAwesome } from "@expo/vector-icons"
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons"
 //Firebase
 import firebase from "../../config/firebase/"
+import { getAuth, signOut } from "firebase/auth";
 
 
-export default function Task({ navigation }) {
-  const database = firebase.firestore()
-
+export default function Task({ navigation, route }) {
 
   const [task, setTask] = useState([])
+  const database = firebase.firestore()
 
+  function logout() {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      navigation.navigate("Login")
+    }).catch((error) => {
+
+    });
+
+  }
 
   function deleteTask(id) {
-    database.collection("Tasks").doc(id).delete()
+    database.collection(route.params.idUser).doc(id).delete()
   }
 
 
   useEffect(() => {
-    database.collection("Tasks").onSnapshot((query) => {
+    database.collection(route.params.idUser).onSnapshot((query) => {
       const list = []
       query.forEach((doc) => {
         list.push({ ...doc.data(), id: doc.id })
@@ -63,6 +72,7 @@ export default function Task({ navigation }) {
                   navigation.navigate("Details", {
                     id: item.id,
                     description: item.description,
+                    idUser: route.params.idUser
                   })
                 }}
               >
@@ -75,11 +85,24 @@ export default function Task({ navigation }) {
       />
       <TouchableOpacity
         style={styles.buttonNewTask}
-        onPress={() => navigation.navigate("New Task")}
+        onPress={() => navigation.navigate("New Task", { idUser: route.params.idUser })}
       >
         <Text style={styles.iconButton}>
           +
         </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.buttonLogout}
+        onPress={() => { logout() }}
+      >
+<Text style={styles.iconButtonLogout}>
+  <MaterialCommunityIcons
+  name='location-exit'
+  size={23}
+  color="#FF725E"
+  />
+</Text>
       </TouchableOpacity>
     </View>
   )
